@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Device Orientation</title>
+</head>
+<body>
+    <pre id="container">Hello, world!</pre>
+    <script>
+    ( function( window, document ) {
+        console.log( 'INSIDE `iife`' ); /// TEMP
+
+        // DECLARE VARS
+        var elem = document.querySelector( '#container' );
+
+        // DECLARE FUNCTIONS
+        function handleOrientationChange( e ) {
+            var output = '';
+
+            if ( e && elem ) {
+              output += e.absolute;
+              output += '\n';
+              output += e.alpha;
+              output += '\n';
+              output += e.beta;
+              output += '\n';
+              output += e.gamma;
+
+              elem.innerHTML = output;
+            }
+        }
+
+        // INIT
+        window.addEventListener( 'DOMContentLoaded', function() {
+            window.addEventListener( 'deviceorientation', handleOrientationChange );
+        } );
+
+        } )( window, document );
+    </script>
+</body>
+</html>
