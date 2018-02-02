@@ -6,13 +6,29 @@
     <title>Device Orientation</title>
 </head>
 <body>
-    <pre id="container">Hello, world!</pre>
+    <pre id="container">...!</pre>
+    <div id="msg">
+        <p>X Axis: <span class="axis--x"></span></p>
+        <p>Y Axis: <span class="axis--y"></span></p>
+        <p>Z Axis: <span class="axis--z"></span></p>
+        Hello, world.
+    </div>
     <script>
     ( function( window, document ) {
         console.log( 'INSIDE `iife`' ); /// TEMP
 
         // DECLARE VARS
         var elem = document.querySelector( '#container' );
+        var msgElem = document.querySelector( '#msg' );
+        var xAxisElem = document.querySelector( '.axis--x' );
+        var yAxisElem = document.querySelector( '.axis--y' );
+        var zAxisElem = document.querySelector( '.axis--z' );
+
+        let lastCoords = {
+            alpha: null,
+            beta: null,
+            gamma: null,
+        };
 
         // DECLARE FUNCTIONS
         function handleOrientationChange( e ) {
@@ -28,6 +44,12 @@
               output += e.gamma;
 
               elem.innerHTML = output;
+
+              xAxisElem.innerHTML = e.alpha;
+              yAxisElem.innerHTML = e.beta;
+              zAxisElem.innerHTML = e.gamma;
+
+              lastCoords = e;
             }
         }
 
