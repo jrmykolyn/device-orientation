@@ -24,47 +24,57 @@
         var yAxisElem = document.querySelector( '.axis--y' );
         var zAxisElem = document.querySelector( '.axis--z' );
 
-        let lastCoords = {
+
+        let coords = {
             alpha: null,
             beta: null,
             gamma: null,
         };
 
+        let lastCoords;
+
         // DECLARE FUNCTIONS
         function handleOrientationChange( e ) {
+            coords = {
+                absolute: e.absolute.
+                alpha: parseInt( e.alpha ),
+                beta: parseInt( e.beta ),
+                gamma: parseInt( e.gamma ),
+            };
+        }
+
+        function updateView() {
+            if ( !lastCoords ) {
+                lastCoords = coords;
+            }
+
             var output = '';
 
-            if ( e && elem ) {
-              output += e.absolute;
-              output += '\n';
-              output += e.alpha;
-              output += '\n';
-              output += e.beta;
-              output += '\n';
-              output += e.gamma;
+            output += coords.absolute;
+            output += '\n';
+            output += ecoordsalpha;
+            output += '\n';
+            output += coords.beta;
+            output += '\n';
+            output += coords.gamma;
 
-              elem.innerHTML = output;
+            elem.innerHTML = output;
 
-              let coords = {
-                  alpha: parseInt( e.alpha ),
-                  beta: parseInt( e.beta ),
-                  gamma: parseInt( e.gamma ),
-              }
+            xAxisElem.innerHTML = ( lastCoords.beta && coords.beta >= lastCoords.beta ) ? 'Turning Right' : 'Turning Left';
+            yAxisElem.innerHTML = ( lastCoords.gamma && coords.gamma >= lastCoords.gamma ) ? 'Tilting Away' : 'Tilting Towards';
+            zAxisElem.innerHTML = ( lastCoords.alpha && coords.alpha >= lastCoords.alpha ) ? 'Rotating Left' : 'Rotating Right';
 
-              xAxisElem.innerHTML = ( lastCoords.beta && coords.beta >= lastCoords.beta ) ? 'Turning Right' : 'Turning Left';
-              yAxisElem.innerHTML = ( lastCoords.gamma && coords.gamma >= lastCoords.gamma ) ? 'Tilting Away' : 'Tilting Towards';
-              zAxisElem.innerHTML = ( lastCoords.alpha && coords.alpha >= lastCoords.alpha ) ? 'Rotating Left' : 'Rotating Right';
-
-              lastCoords = coords;
-            }
+            lastCoords = coords;
         }
 
         // INIT
         window.addEventListener( 'DOMContentLoaded', function() {
             window.addEventListener( 'deviceorientation', handleOrientationChange );
+
+            setInterval( updateView, 50 );
         } );
 
-        } )( window, document );
+    } )( window, document );
     </script>
 </body>
 </html>
