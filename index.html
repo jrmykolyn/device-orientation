@@ -45,11 +45,17 @@
 
               elem.innerHTML = output;
 
-              xAxisElem.innerHTML = ( lastCoords.beta && e.beta >= lastCoords.beta ) ? 'Turning Right' : 'Turning Left';
-              yAxisElem.innerHTML = ( lastCoords.gamma && e.gamma >= lastCoords.gamma ) ? 'Tilting Away' : 'Tilting Towards';
-              zAxisElem.innerHTML = ( lastCoords.alpha && e.alpha >= lastCoords.alpha ) ? 'Rotating Left' : 'Rotating Right';
+              let coords = {
+                  alpha: parseInt( e.alpha ),
+                  beta: parseInt( e.beta ),
+                  gamma: parseInt( e.gamma ),
+              }
 
-              lastCoords = e;
+              xAxisElem.innerHTML = ( lastCoords.beta && coords.beta >= lastCoords.beta ) ? 'Turning Right' : 'Turning Left';
+              yAxisElem.innerHTML = ( lastCoords.gamma && coords.gamma >= lastCoords.gamma ) ? 'Tilting Away' : 'Tilting Towards';
+              zAxisElem.innerHTML = ( lastCoords.alpha && coords.alpha >= lastCoords.alpha ) ? 'Rotating Left' : 'Rotating Right';
+
+              lastCoords = coords;
             }
         }
 
